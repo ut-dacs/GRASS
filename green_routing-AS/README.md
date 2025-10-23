@@ -1,2 +1,0 @@
-# green_routing
-
