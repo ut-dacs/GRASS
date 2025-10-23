@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GRASS: Green Ranking of Autonomous SystemS</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f0f2f5;
+      margin: 0;
+    }
+
+    header {
+      background-color: #1e293b;
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    header h1 {
+      margin-bottom: 0.5rem;
+      font-size: 2rem;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    section {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      padding: 2rem;
+    }
+
+    section h2 {
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 0.5rem;
+    }
+
+    iframe {
+      border: none;
+      width: 100%;
+      height: 600px;
+      border-radius: 8px;
+    }
+
+    .image-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .image-row img {
+      width: 350px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    table.dataTable {
+      width: 100% !important;
+      background-color: #fff;
+      border-collapse: collapse;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .styled-table th,
+    .styled-table td {
+      padding: 0.75rem;
+      border: 1px solid #e2e8f0;
+    }
+
+    .styled-table thead {
+      background-color: #f1f5f9;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>GRASS: Green Ranking of Autonomous SystemS</h1>
+    <p>A framework for estimating and visualizing carbon intensity of Autonomous Systems based on their infrastructure and topology.</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>AS Emissions Table</h2>
+      <table id="as-table" class="display styled-table">
+        <thead>
+          <tr><th>ASN</th><th>Organization</th><th>CO₂ Emissions</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>AS Link Emissions</h2>
+      <table id="link-table" class="display styled-table">
+        <thead>
+          <tr><th>AS1</th><th>AS2</th><th>Total CO₂</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>CO₂ Emission Visualizations</h2>
+
+      <h3>Interactive Scatter Plot</h3>
+      <iframe src="Plots/co2_scatter_interactive.html"></iframe>
+
+      <h3>Interactive Donut Pie Chart</h3>
+      <iframe src="Plots/co2_pie_interactive.html"></iframe>
+
+      <h3>Distribution of CO₂ Intensity Across AS Popularity Groups</h3>
+      <iframe src="Plots/co2_violin_popularity_groups_interactive.html"></iframe>
+
+      <h3>CO₂ Emissions vs AS Popularity</h3>
+      <div class="image-row">
+        <img src="Plots/co2_vs_as_popularity.png" alt="CO₂ Emissions vs AS Popularity Scatter" />
+      </div>
+
+      <h3>Customer Cone Size vs CO₂ Intensity</h3>
+      <iframe src="Plots/co2_vs_cc_interactive.html"></iframe>
+
+      <h3>CO₂ Emission CDF (Cumulative Distribution)</h3>
+      <div class="image-row">
+        <img src="Plots/co2_emissions_cdf_black_steps_aligned.png" alt="CO₂ CDF Plot" />
+      </div>
+    </section>
+  </main>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <script src="tables.js?v=1.0.3"></script>
+</body>
+</html>

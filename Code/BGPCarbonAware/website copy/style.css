@@ -1,0 +1,77 @@
+/* === Global === */
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f6f9;
+  margin: 0;
+  padding: 0;
+}
+
+/* === Header === */
+header {
+  background: #324054;
+  color: white;
+  text-align: center;
+  padding: 1.5em;
+}
+
+/* === Main container === */
+.table-container {
+  display: block;
+  padding: 2em;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* === Section spacing === */
+section {
+  margin-bottom: 3rem;
+}
+
+/* === Table styling === */
+table.styled-table {
+  width: 100%;
+  background: white;
+  border-collapse: collapse;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.styled-table thead {
+  background: #dbe4f0;
+}
+
+.styled-table th,
+.styled-table td {
+  padding: 0.7em;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+/* === Image row === */
+.image-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+/* === Image size === */
+.image-row img {
+  width: 120px;
+  height: auto;
+  object-fit: contain;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.image-row img {
+  width: 350px !important;
+  max-width: 350px !important;
+  height: auto !important;
+  display: block;
+  object-fit: contain;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
