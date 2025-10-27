@@ -3,7 +3,7 @@ console.log("✅ tables.js loaded");
 function loadAsTable() {
   console.log("✅ loadAsTable called");
 
-  fetch("as_co2_final_filtered_sorted.csv")
+  fetch("as_co2_final_filtered_sorted_may.csv")
     .then(res => res.text())
     .then(text => {
       const rows = text.trim().split("\n").slice(1); // salta intestazione
@@ -48,7 +48,7 @@ function loadAsTable() {
 function loadLinkTable() {
   console.log("✅ loadLinkTable called");
 
-  fetch("enriched_as_links.csv")
+  fetch("enriched_as_links_may.csv")
     .then(res => res.text())
     .then(csvText => {
       // ✅ Parse CSV with quotes/commas using PapaParse
