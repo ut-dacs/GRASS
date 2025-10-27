@@ -1,84 +1,89 @@
 console.log("✅ tables.js loaded");
 
-function loadAsTable() {
-  console.log("✅ loadAsTable called");
+let currentMonth = "may";
 
-  fetch("as_co2_final_filtered_sorted_may.csv")
+// Mappa dei CSV per mese
+const csvFiles = {
+  may: {
+    as: "as_co2_final_filtered_sorted_may.csv",
+    links: "enriched_as_links_may.csv"
+  },
+  june: {
+    as: "as_co2_final_filtered_sorted_june.csv",
+    links: "enriched_as_links_june.csv"
+  },
+  july: {
+    as: "as_co2_final_filtered_sorted_july.csv",
+    links: "enriched_as_links_July.csv"
+  }
+};
+
+// Mappa dei plot per mese
+const plotFiles = {
+  may: [
+    "Plots/co2_pie_interactive copy.html",
+    "Plots/co2_violin_popularity_groups_interactive.html",
+    "Plots/co2_vs_cc_interactive.html",
+    "Plots/interactive_cdf_co2_intensity.html",
+    "Plots/interactive_heatmap_top10_orgs_with_x.html"
+  ],
+  june: [
+    "Plots/co2_pie_interactive copy.html",
+    "Plots/co2_violin_popularity_groups_interactive.html",
+    "Plots/co2_vs_cc_interactive.html",
+    "Plots/interactive_cdf_co2_intensity.html",
+    "Plots/interactive_heatmap_top10_orgs_with_x.html"
+  ],
+  july: [
+    "Plots/co2_pie_interactive copy.html",
+    "Plots/co2_violin_popularity_groups_interactive.html",
+    "Plots/co2_vs_cc_interactive.html",
+    "Plots/interactive_cdf_co2_intensity.html",
+    "Plots/interactive_heatmap_top10_orgs_with_x.html"
+  ]
+};
+
+// Load AS Table
+function loadAsTable(month = currentMonth) {
+  fetch(csvFiles[month].as)
     .then(res => res.text())
     .then(text => {
-      const rows = text.trim().split("\n").slice(1); // salta intestazione
-
+      const rows = text.trim().split("\n").slice(1);
       const data = rows
-        .map(row => row.split(","))
+        .map(r => r.split(","))
         .filter(r => r.length === 4 && !isNaN(parseFloat(r[3])))
-        .map(r => [
-          r[0],                // ASnumber
-          r[2],                // AS_Organization
-          parseFloat(r[3]).toFixed(2)  // CO2_Intensity
-        ]);
+        .map(r => [r[0], r[2], parseFloat(r[3]).toFixed(2)]);
 
-      // Distruggi solo se già esiste
       if ($.fn.DataTable.isDataTable("#as-table")) {
         $('#as-table').DataTable().clear().destroy();
       }
 
-      // Crea la tabella con DataTables
       $('#as-table').DataTable({
-        data: data,
-        columns: [
-          { title: "ASN" },
-          { title: "Organization" },
-          { title: "CO₂ Emissions" }
-        ],
+        data,
+        columns: [{ title: "ASN" }, { title: "Organization" }, { title: "CO₂ Emissions" }],
         pageLength: 10,
-        lengthChange: false,
-        order: [[2, 'asc']],
-        searching: true,
-        paging: true,
-        info: true
+        order: [[2, 'asc']]
       });
-
-      console.log("✅ AS DataTable initialized");
     })
-    .catch(err => console.error("❌ Error loading AS table:", err));
+    .catch(err => console.error(err));
 }
 
-
-
-function loadLinkTable() {
-  console.log("✅ loadLinkTable called");
-
-  fetch("enriched_as_links_may.csv")
+// Load Link Table
+function loadLinkTable(month = currentMonth) {
+  fetch(csvFiles[month].links)
     .then(res => res.text())
     .then(csvText => {
-      // ✅ Parse CSV with quotes/commas using PapaParse
-      const parsed = Papa.parse(csvText, {
-        header: true,
-        skipEmptyLines: true
-      });
-
-      // ✅ Filter and format data
+      const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
       const data = parsed.data
-        .filter(row => 
-          !isNaN(parseFloat(row.Total_CO2)) && 
-          parseFloat(row.Total_CO2) > 0
-        )
-        .map(row => [
-          row.AS1,
-          row.AS1_org_name,
-          row.AS2,
-          row.AS2_org_name,
-          parseFloat(row.Total_CO2).toFixed(2)
-        ]);
+        .filter(r => !isNaN(parseFloat(r.Total_CO2)) && parseFloat(r.Total_CO2) > 0)
+        .map(r => [r.AS1, r.AS1_org_name, r.AS2, r.AS2_org_name, parseFloat(r.Total_CO2).toFixed(2)]);
 
-      // ✅ Destroy existing table if present
       if ($.fn.DataTable.isDataTable("#link-table")) {
         $('#link-table').DataTable().clear().destroy();
       }
 
-      // ✅ Create new table
       $('#link-table').DataTable({
-        data: data,
+        data,
         columns: [
           { title: "AS1" },
           { title: "AS1 Organization" },
@@ -87,21 +92,36 @@ function loadLinkTable() {
           { title: "Total CO₂" }
         ],
         pageLength: 10,
-        order: [[4, 'asc']],
-        searching: true,
-        paging: true,
-        info: true
+        order: [[4, 'asc']]
       });
-
-      console.log("✅ link-table initialized");
     })
-    .catch(err => console.error("❌ Error loading link table:", err));
+    .catch(err => console.error(err));
 }
 
+// Update plots
+function updatePlots(month = currentMonth) {
+  const plotIds = ["plot1", "plot2", "plot3", "plot4", "plot5"];
+  plotIds.forEach((id, i) => {
+    const iframe = document.getElementById(id);
+    if (iframe) iframe.src = plotFiles[month][i];
+  });
+}
 
+// Initialize
+document.addEventListener("DOMContentLoaded", () => {
+  // Load initial month
+  loadAsTable(currentMonth);
+  loadLinkTable(currentMonth);
+  updatePlots(currentMonth);
 
-
-document.addEventListener("DOMContentLoaded", function () {
-  loadAsTable();     
-  loadLinkTable();  
+  // Listen for month selection
+  const monthSelect = document.getElementById("monthSelect");
+  if (monthSelect) {
+    monthSelect.addEventListener("change", function() {
+      currentMonth = this.value;
+      loadAsTable(currentMonth);
+      loadLinkTable(currentMonth);
+      updatePlots(currentMonth);
+    });
+  }
 });
