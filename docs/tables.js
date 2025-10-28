@@ -1,6 +1,6 @@
 console.log("✅ tables.js loaded");
 
-let currentMonth = "may";
+let currentMonth = "july";
 
 // Mappa dei CSV per mese
 const csvFiles = {
@@ -31,15 +31,15 @@ const plotFiles = {
     "Plots/co2_pie_interactive copy.html",
     "Plots/co2_violin_popularity_groups_interactive.html",
     "Plots/co2_vs_cc_interactive.html",
-    "Plots/interactive_cdf_co2_intensity.html",
-    "Plots/interactive_heatmap_top10_orgs_with_x.html"
+    "Plots/interactive_cdf_co2_intensity_june.html",
+    "Plots/interactive_heatmap_top10_orgs_with_x_june.html"
   ],
   july: [
     "Plots/co2_pie_interactive copy.html",
     "Plots/co2_violin_popularity_groups_interactive.html",
     "Plots/co2_vs_cc_interactive.html",
-    "Plots/interactive_cdf_co2_intensity.html",
-    "Plots/interactive_heatmap_top10_orgs_with_x.html"
+    "Plots/interactive_cdf_co2_intensity_july.html",
+    "Plots/interactive_heatmap_top10_orgs_with_x_july.html"
   ]
 };
 
