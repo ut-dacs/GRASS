@@ -16,10 +16,6 @@ const csvFiles = {
     as: "as_co2_final_filtered_sorted_july.csv",
     links: "enriched_as_links_July.csv"
   }
-  august: {
-    as: "as_co2_final_filtered_sorted_augu.csv",
-    links: "enriched_as_links_augu.csv"
-  }
 };
 
 // Mappa dei plot per mese
@@ -39,14 +35,6 @@ const plotFiles = {
     "Plots/interactive_heatmap_top10_orgs_with_x_june.html"
   ],
   july: [
-    "Plots/co2_pie_interactive copy.html",
-    "Plots/co2_violin_popularity_groups_interactive.html",
-    "Plots/co2_vs_cc_interactive.html",
-    "Plots/interactive_cdf_co2_intensity_july.html",
-    "Plots/interactive_heatmap_top10_orgs_with_x_july.html"
-  ]
-
-  august: [
     "Plots/co2_pie_interactive copy.html",
     "Plots/co2_violin_popularity_groups_interactive.html",
     "Plots/co2_vs_cc_interactive.html",
